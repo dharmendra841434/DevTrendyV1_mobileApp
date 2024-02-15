@@ -6,10 +6,8 @@ import {
   Image,
   FlatList,
   StatusBar,
-  TextInput,
   TouchableWithoutFeedback,
   Keyboard,
-  ScrollView,
   Dimensions,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
@@ -33,15 +31,14 @@ import {
   getUserAddresses,
   setCartItemsData,
   setTotalPrice,
+  updateUserDetails,
 } from '../../reduxManagment/splice/appSlice';
 import CheckDeliveryAdress from '../../components/DetectCurrentLocation';
 import CustomButton from '../../components/CustomButton';
 import LoginSection from '../../components/LoginSection/LoginSection';
-import AddressCard from '../../components/AddressCard';
-import SizeDropDown from '../../components/SizeDropDown';
-import ModalExample from '../../components/CustomModal';
 import ChangeAddress from '../savedAddress/ChangeAddress';
 import BottomSlide from '../../components/BottomSlide';
+import SizeSection from '../../components/SizeDropDown';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -63,7 +60,65 @@ const CartScreen = props => {
     dispatch(getUserAddresses(userData?._id));
   }, [dispatch]);
 
-  console.log(isLoggedIn && userAddresses?.length !== 0);
+  const decreaseQuantity = item => {
+    if (item?.quantity > 1) {
+      let res = decreasQty(cartItems, item?._id, item?.quantity);
+      dispatch(setCartItemsData(res));
+      const data = {
+        userId: userData?._id,
+        cartItems: res,
+      };
+      dispatch(updateUserDetails(data));
+      dispatch(setTotalPrice(calculateTotalPrice(res)));
+    }
+  };
+
+  const increaseQuantity = item => {
+    if (item?.quantity < 9) {
+      let res = increasQty(cartItems, item?._id, item?.quantity);
+      dispatch(setCartItemsData(res));
+      const data = {
+        userId: userData?._id,
+        cartItems: res,
+      };
+      dispatch(updateUserDetails(data));
+      dispatch(setTotalPrice(calculateTotalPrice(res)));
+    }
+  };
+
+  const removeItems = item => {
+    let t = [...cartItems];
+    let res = t.filter((item4, index) => item4?._id !== item?._id);
+    const data = {
+      userId: userData?._id,
+      cartItems: res,
+    };
+    dispatch(setCartItemsData(res));
+    dispatch(updateUserDetails(data));
+    dispatch(setTotalPrice(calculateTotalPrice(res)));
+  };
+
+  const selectColor = async (item, item2) => {
+    let data = [...cartItems];
+    let result = await changeSelectedColor(data, item?._id, item2);
+    const res = {
+      userId: userData?._id,
+      cartItems: result,
+    };
+    dispatch(updateUserDetails(res));
+    dispatch(setCartItemsData(result));
+  };
+
+  const handleSelectSize = async (val, item) => {
+    let data = [...cartItems];
+    let result = await changeSelectedSize(data, item?._id, val);
+    const res = {
+      userId: userData?._id,
+      cartItems: result,
+    };
+    dispatch(updateUserDetails(res));
+    dispatch(setCartItemsData(result));
+  };
 
   return (
     <>
@@ -215,15 +270,7 @@ const CartScreen = props => {
                         }}>
                         <TouchableOpacity
                           onPress={() => {
-                            if (item?.quantity > 1) {
-                              let res = decreasQty(
-                                cartItems,
-                                item?._id,
-                                item?.quantity,
-                              );
-                              dispatch(setCartItemsData(res));
-                              dispatch(setTotalPrice(calculateTotalPrice(res)));
-                            }
+                            decreaseQuantity(item);
                           }}
                           style={{
                             marginHorizontal: 5,
@@ -247,15 +294,7 @@ const CartScreen = props => {
                         </Text>
                         <TouchableOpacity
                           onPress={() => {
-                            if (item?.quantity < 9) {
-                              let res = increasQty(
-                                cartItems,
-                                item?._id,
-                                item?.quantity,
-                              );
-                              dispatch(setCartItemsData(res));
-                              dispatch(setTotalPrice(calculateTotalPrice(res)));
-                            }
+                            increaseQuantity(item);
                           }}
                           style={{
                             marginHorizontal: 5,
@@ -375,15 +414,7 @@ const CartScreen = props => {
                             {item?.images?.map((item2, index2) => (
                               <TouchableOpacity
                                 key={index2}
-                                onPress={async () => {
-                                  let data = [...cartItems];
-                                  let result = await changeSelectedColor(
-                                    data,
-                                    item?._id,
-                                    item2,
-                                  );
-                                  dispatch(setCartItemsData(result));
-                                }}>
+                                onPress={() => selectColor(item, item2)}>
                                 <Image
                                   source={{uri: item2}}
                                   style={{
@@ -416,17 +447,9 @@ const CartScreen = props => {
                             }}>
                             Size{' '}
                           </Text>
-                          <SizeDropDown
+                          <SizeSection
                             selected={item?.size}
-                            onSelect={async val => {
-                              let data = [...cartItems];
-                              let result = await changeSelectedSize(
-                                data,
-                                item?._id,
-                                val,
-                              );
-                              dispatch(setCartItemsData(result));
-                            }}
+                            onSelect={v => handleSelectSize(v, item)}
                           />
                         </View>
                       </View>
@@ -447,12 +470,7 @@ const CartScreen = props => {
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() => {
-                        let t = [...cartItems];
-                        let res = t.filter(
-                          (item4, index) => item4?._id !== item?._id,
-                        );
-                        dispatch(setCartItemsData(res));
-                        dispatch(setTotalPrice(calculateTotalPrice(res)));
+                        removeItems(item);
                       }}
                       activeOpacity={0.6}
                       style={styles.subButton2}>
@@ -470,9 +488,7 @@ const CartScreen = props => {
               )}
             />
             <View style={styles.actionBar}>
-              <TouchableOpacity
-                activeOpacity={0.6}
-                onPress={() => addToCart()}
+              <View
                 style={{
                   borderWidth: 1,
                   borderColor: appColors.borderColor,
@@ -500,16 +516,23 @@ const CartScreen = props => {
                     {addCommasToRupees(totalPrice)}
                   </Text>
                 </View>
-              </TouchableOpacity>
+              </View>
               <TouchableOpacity
                 onPress={() => {
                   if (!isLoggedIn) {
                     setIsModelOpen(true);
+                  } else {
+                    if (userAddresses.length === 0) {
+                      console.log('akudsiaui');
+                      navigation.navigate('selectAddress');
+                    } else {
+                      navigation.navigate('proccessOrder');
+                    }
                   }
                 }}
                 activeOpacity={0.6}
                 style={{
-                  backgroundColor: '#07a607',
+                  backgroundColor: appColors.appGreen,
                   width: '70%',
                   height: '100%',
                   borderRadius: 3,

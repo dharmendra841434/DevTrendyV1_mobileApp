@@ -37,8 +37,9 @@ const AddNewAddress = props => {
   const loader = useSelector(state => state?.app?.saveAddressLoader);
   const allState = useSelector(state => state?.app?.allStatesList);
   const allcities = useSelector(state => state?.app?.allCitiesList);
-  const id = props?.route?.params?.userId;
-  const code = props?.route?.params?.countryCode;
+  const userData = useSelector(state => state?.app?.userData);
+  const id = userData?._id;
+  const code = userData?.countryCode;
   const navigation = useNavigation();
   const [altrPhStatus, setAltrPhStatus] = useState(false);
   const [typeOfAdress, setTypeOfAdress] = useState('');
@@ -47,7 +48,7 @@ const AddNewAddress = props => {
 
   const dispatch = useDispatch();
 
-  //console.log(userAddress, id, 'this is adresss');
+  //console.log(code, id, 'this is adresss');
 
   const {
     handleChange,
@@ -100,6 +101,7 @@ const AddNewAddress = props => {
   const getAllState = async () => {
     let userCountry = countryCodes?.filter(item => item.phoneCode === code);
     const reqBody = {country: userCountry[0]?.name};
+    console.log(reqBody);
     dispatch(getStatesList(reqBody));
   };
 
@@ -111,6 +113,8 @@ const AddNewAddress = props => {
   useEffect(() => {
     getAllState();
   }, []);
+
+  console.log(allState);
 
   return (
     <View>

@@ -13,6 +13,7 @@ import com.facebook.react.flipper.ReactNativeFlipper
 import com.facebook.soloader.SoLoader
 import com.oblador.vectoricons.VectorIconsPackage;
 
+
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =

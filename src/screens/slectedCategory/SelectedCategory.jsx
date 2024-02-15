@@ -34,7 +34,7 @@ const SelectedCategory = props => {
         setCategoryData(res?.data?.data);
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       })
       .finally(() => {
         setLoader(false);
@@ -95,6 +95,7 @@ const SelectedCategory = props => {
                   <Image
                     source={{uri: item.coverImage}}
                     style={{height: 180, width: 160}}
+                    resizeMethod="resize"
                   />
                 </View>
                 <View style={{alignItems: 'center'}}>

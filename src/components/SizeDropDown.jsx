@@ -4,7 +4,7 @@ import {sizeChart} from '../utils/dummyData';
 import appColors from '../utils/appColors';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const SizeDropDown = ({selected, onSelect}) => {
+const SizeSection = ({selected, onSelect}) => {
   return (
     <View>
       <FlatList
@@ -32,4 +32,4 @@ const SizeDropDown = ({selected, onSelect}) => {
   );
 };
 
-export default SizeDropDown;
+export default SizeSection;

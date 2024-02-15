@@ -18,8 +18,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {BASE_URL} from '../utils/base_Url';
 import {useDispatch} from 'react-redux';
-import {setLoginStatus, setUserData} from '../reduxManagment/splice/appSlice';
+import {
+  setCartItemsData,
+  setLoginStatus,
+  setTotalPrice,
+  setUserData,
+} from '../reduxManagment/splice/appSlice';
 import {fetch} from '@react-native-community/netinfo';
+import {calculateTotalPrice} from '../utils/helper';
 const SplashScreen = () => {
   // const animatedValue = new Animated.Value(0);
   const navigation = useNavigation();
@@ -35,9 +41,16 @@ const SplashScreen = () => {
       await axios
         .get(`${BASE_URL}/user/${token}`)
         .then(res => {
-          // console.log(res.data?.user, 'userdetails');
+          //console.log(res.data?.user, 'userdetails');
           dispatch(setUserData(res.data?.user));
           dispatch(setLoginStatus(true));
+          if (res.data?.user?.cartItems.length !== 0) {
+            dispatch(setCartItemsData(res.data?.user?.cartItems));
+            dispatch(
+              setTotalPrice(calculateTotalPrice(res.data?.user?.cartItems)),
+            );
+          }
+
           //navigation.navigate('home');
           navigation.navigate('home');
         })

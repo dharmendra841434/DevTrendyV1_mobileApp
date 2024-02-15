@@ -7,7 +7,7 @@ export const saveUserAddress = createAsyncThunk(
     try {
       dispatch(setSaveAddressLoader(true));
       const response = await userAPI.saveAddress(values);
-      console.log(response, 'saved address response');
+      // console.log(response, 'saved address response');
       dispatch(setSaveAddressLoader(false));
     } catch (error) {
       if (error.response) {
@@ -22,7 +22,7 @@ export const getUserAddresses = createAsyncThunk(
   async (values, {dispatch, rejectWithValue}) => {
     try {
       const response = await userAPI.getUserAddresses(values);
-      console.log(response, 'all address response');
+      // console.log(response, 'all address response');
       dispatch(setUserAddresses(response?.addresses));
       dispatch(setUserSelectedAddress(response?.addresses[0]));
     } catch (error) {
@@ -39,7 +39,7 @@ export const removeSingleAddress = createAsyncThunk(
     try {
       // console.log(values, ' this is from splice id');
       const response = await userAPI.removeAddress(values);
-      console.log(response, 'all address response');
+      // console.log(response, 'all address response');
     } catch (error) {
       if (error.response) {
         return rejectWithValue({hasError: error.response.data.message});
@@ -67,8 +67,43 @@ export const getCitiesList = createAsyncThunk(
   async (values, {dispatch, rejectWithValue}) => {
     try {
       const response = await userAPI.getAllCities(values);
-      console.log(response, 'all states response');
+      //console.log(response, 'all states response');
       dispatch(setAllCities(response?.data));
+    } catch (error) {
+      if (error.response) {
+        return rejectWithValue({hasError: error.response.data.message});
+      }
+    }
+  },
+);
+export const getListOfProducts = createAsyncThunk(
+  'products',
+  async (values, {dispatch, rejectWithValue}) => {
+    try {
+      dispatch(setProductListLoader(true));
+      const response = await userAPI.getProductList();
+      // console.log(response, 'all states response');
+      dispatch(setProductListData(response?.data));
+      dispatch(setProductListLoader(false));
+    } catch (error) {
+      dispatch(setProductListLoader(false));
+      if (error.response) {
+        return rejectWithValue({hasError: error.response.data.message});
+      }
+    }
+  },
+);
+
+export const updateUserDetails = createAsyncThunk(
+  'user',
+  async (values, {dispatch, rejectWithValue}) => {
+    try {
+      const {userId, cartItems} = values;
+      //console.log(userId, cartItems, 'skudis');
+      const response = await userAPI.updateUser(userId, {
+        cartItems: cartItems,
+      });
+      // console.log(response, 'update response response');
     } catch (error) {
       if (error.response) {
         return rejectWithValue({hasError: error.response.data.message});
@@ -91,6 +126,7 @@ const initialState = {
   allStatesList: [],
   allCitiesList: [],
   userSelectedAddress: null,
+  productListLoader: false,
 };
 export const appSlice = createSlice({
   name: 'app',
@@ -135,6 +171,9 @@ export const appSlice = createSlice({
     setAllCities: (state, action) => {
       state.allCitiesList = action.payload;
     },
+    setProductListLoader: (state, action) => {
+      state.productListLoader = action.payload;
+    },
   },
 });
 export const {
@@ -151,6 +190,7 @@ export const {
   setAllStates,
   setAllCities,
   setUserSelectedAddress,
+  setProductListLoader,
 } = appSlice.actions;
 
 export default appSlice.reducer;

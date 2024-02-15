@@ -43,14 +43,13 @@ const EditProfile = props => {
     await axios
       .post(`${BASE_URL}/user/update/${userData?._id}`, editedField)
       .then(res => {
-        console.log(res.data, 'response login ');
+        // console.log(res.data, 'response login ');
         dispatch(setUserData(res?.data?.user));
+        setLoader(false);
         navigation.goBack();
       })
       .catch(error => {
         console.log(error.response?.data, 'this is exios eee');
-      })
-      .finally(() => {
         setLoader(false);
       });
   };

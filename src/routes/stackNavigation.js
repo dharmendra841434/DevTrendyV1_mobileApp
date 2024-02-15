@@ -18,6 +18,8 @@ import SavedAddress from '../screens/savedAddress/SavedAddress';
 import AddNewAddress from '../screens/savedAddress/AddNewAddress';
 import EditAddress from '../screens/savedAddress/EditAddress';
 import BottomNavigation from './bottomNavigation';
+import AllSuggestedProducts from '../screens/suggestedList/AllSuggestedProducts';
+import ProccessOrder from '../screens/placeOrderProcess/ProccessOrder';
 
 const Stack = createNativeStackNavigator();
 const RootNavigation = () => {
@@ -36,6 +38,9 @@ const RootNavigation = () => {
         <Stack.Screen name="cart" component={CartScreen} />
         <Stack.Screen name="otp_verification" component={OtpVerification} />
         <Stack.Screen name="not_internet" component={NoInternet} />
+        <Stack.Screen name="allSuggested" component={AllSuggestedProducts} />
+        <Stack.Screen name="selectAddress" component={SavedAddress} />
+        <Stack.Screen name="proccessOrder" component={ProccessOrder} />
       </Stack.Navigator>
     </NavigationContainer>
   );

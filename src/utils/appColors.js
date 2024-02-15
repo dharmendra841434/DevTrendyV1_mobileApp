@@ -8,7 +8,9 @@ const appColors = {
   borderColor: '#cacccb',
   cardBg: '#ededeb',
   textBlack: '#161A30',
-  appBlue: '#3652AD',
+  appBlue: '#0B60B0',
+  grayBg: '#fcf5f2',
+  appGreen: '#07a607',
 };
 
 export default appColors;

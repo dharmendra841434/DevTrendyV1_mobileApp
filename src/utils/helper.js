@@ -75,6 +75,13 @@ export function calculateTotalPrice(objectsArray) {
 
   return total;
 }
+export function calculateTotalAtualPrice(objectsArray) {
+  let total = objectsArray?.reduce((total, obj) => {
+    return total + obj?.quantity * obj.price;
+  }, 0);
+
+  return total;
+}
 
 export function sortString(inputString, maxLength) {
   if (inputString?.length > maxLength) {
@@ -130,3 +137,17 @@ export function decreasQty(array, id, preValue) {
 
   return updatedArray;
 }
+
+export const updateStepCompletion = (
+  index,
+  newIsComplete,
+  setStepsData,
+  stepsData,
+) => {
+  const updatedStepsData = [...stepsData];
+  updatedStepsData[index] = {
+    ...updatedStepsData[index],
+    isComplete: newIsComplete,
+  };
+  setStepsData(updatedStepsData);
+};

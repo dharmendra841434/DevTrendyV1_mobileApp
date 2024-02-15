@@ -59,9 +59,11 @@ const ProductCard = ({item, style}) => {
         source={{
           uri: item?.coverImage,
         }}
+        resizeMethod="resize"
+        crossOrigin="anonymous"
         style={{
           height: 150,
-          width: Width / 2.4,
+          width: 100,
         }}
         resizeMode="cover"
       />

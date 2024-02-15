@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   FlatList,
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import BottomSlide from '../BottomSlide';

@@ -28,12 +28,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   setCartItemsData,
   setTotalPrice,
+  updateUserDetails,
 } from '../../reduxManagment/splice/appSlice';
 import CheckDeliveryAdress from '../../components/DetectCurrentLocation';
 
 const Width = Dimensions.get('window').width;
 
 const ProductDetails = props => {
+  const userData = useSelector(state => state?.app?.userData);
   const cartItems = useSelector(state => state?.app?.cartItems);
   const single_product_data = props?.route?.params?.details;
   const navigation = useNavigation();
@@ -81,6 +83,13 @@ const ProductDetails = props => {
     dispatch(setCartItemsData(details));
     let t = calculateTotalPrice(details);
     dispatch(setTotalPrice(t));
+    const data = {
+      userId: userData?._id,
+      cartItems: details,
+    };
+
+    //console.log(data);
+    dispatch(updateUserDetails(data));
   };
 
   useEffect(() => {

@@ -33,6 +33,18 @@ export const userAPI = {
       .post(`${BASE_URL}/user/get-cities`, values)
       .then(res => res?.data);
   },
+  getProductList: async () => {
+    return await axios
+      .get(`${BASE_URL}/product/products-list`)
+      .then(res => res?.data);
+  },
+
+  updateUser: async (id, data) => {
+    console.log(id, data);
+    await axios
+      .post(`${BASE_URL}/user/update/${id}`, data)
+      .then(res => res?.data);
+  },
   //   getAllGames: async () => {
   //     return await axios.get(`${BASE_URL}/games`).then(res => res.data);
   //   },
