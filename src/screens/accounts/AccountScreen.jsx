@@ -130,7 +130,12 @@ const AccountScreen = () => {
             </View>
           </View>
         )}
-        <ScrollView>
+        <ScrollView
+          style={{
+            height: '80%',
+
+            paddingBottom: '5%',
+          }}>
           <View style={{height: '90%'}}>
             {isLoggedIn && (
               <View style={Styles.settingSection}>
@@ -142,6 +147,11 @@ const AccountScreen = () => {
                       <TouchableOpacity
                         activeOpacity={0.6}
                         key={index}
+                        onPress={() => {
+                          if (item.title === 'Orders') {
+                            navigation.navigate('orders');
+                          }
+                        }}
                         style={{
                           flexDirection: 'row',
                           alignItems: 'center',
@@ -153,7 +163,13 @@ const AccountScreen = () => {
                           paddingVertical: 5,
                         }}>
                         {item.icon}
-                        <Text>{item.title}</Text>
+                        <Text
+                          style={{
+                            fontFamily: appFonts.Poppins,
+                            color: appColors.appGray,
+                          }}>
+                          {item.title}
+                        </Text>
                       </TouchableOpacity>
                     </View>
                   )}
@@ -375,6 +391,15 @@ const AccountScreen = () => {
                 </TouchableOpacity>
               </View>
             </View>
+            {isLoggedIn && (
+              <CustomButton
+                title="Logout"
+                onPress={() => logoutUser()}
+                isEnable={true}
+                style={Styles.logout}
+                titleStyle={{color: appColors.appBlack}}
+              />
+            )}
           </View>
         </ScrollView>
       </View>
@@ -382,15 +407,6 @@ const AccountScreen = () => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       />
-      {isLoggedIn && (
-        <CustomButton
-          title="Logout"
-          onPress={() => logoutUser()}
-          isEnable={true}
-          style={Styles.logout}
-          titleStyle={{color: appColors.appBlack}}
-        />
-      )}
     </View>
   );
 };
@@ -454,14 +470,13 @@ const Styles = StyleSheet.create({
     color: appColors.appBlack,
   },
   logout: {
-    position: 'absolute',
-    left: 10,
-    right: 10,
-    bottom: 10,
     elevation: 5,
+    width: '80%',
     backgroundColor: appColors.borderColor,
     borderWidth: 1,
+    marginVertical: '3%',
     borderColor: appColors.borderColor,
+    alignSelf: 'center',
   },
 });
 

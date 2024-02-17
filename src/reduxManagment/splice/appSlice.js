@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {userAPI} from './api';
+import {calculateTotalPrice} from '../../utils/helper';
 
 export const saveUserAddress = createAsyncThunk(
   'address',
@@ -94,7 +95,7 @@ export const getListOfProducts = createAsyncThunk(
   },
 );
 
-export const updateUserDetails = createAsyncThunk(
+export const updateUserCartItems = createAsyncThunk(
   'user',
   async (values, {dispatch, rejectWithValue}) => {
     try {
@@ -105,6 +106,41 @@ export const updateUserDetails = createAsyncThunk(
       });
       // console.log(response, 'update response response');
     } catch (error) {
+      if (error.response) {
+        return rejectWithValue({hasError: error.response.data.message});
+      }
+    }
+  },
+);
+
+export const getUserDetails = createAsyncThunk(
+  'user',
+  async (values, {dispatch, rejectWithValue}) => {
+    try {
+      console.log(values, 'token');
+      const resData = await userAPI.getUserData(values);
+      //console.log(resData, 'user response');
+      dispatch(setUserData(resData?.user));
+      dispatch(setLoginStatus(true));
+      dispatch(setCartItemsData(resData?.user?.cartItems));
+      dispatch(setTotalPrice(calculateTotalPrice(resData?.user?.cartItems)));
+    } catch (error) {
+      console.log(error);
+      if (error.response) {
+        return rejectWithValue({hasError: error.response.data.message});
+      }
+    }
+  },
+);
+export const getUserOrders = createAsyncThunk(
+  'user',
+  async (values, {dispatch, rejectWithValue}) => {
+    try {
+      const resData = await userAPI.getOrdersData(values);
+      //console.log(resData, 'user response');
+      dispatch(setOrdersListData(resData?.orders));
+    } catch (error) {
+      console.log(error);
       if (error.response) {
         return rejectWithValue({hasError: error.response.data.message});
       }
@@ -127,6 +163,7 @@ const initialState = {
   allCitiesList: [],
   userSelectedAddress: null,
   productListLoader: false,
+  ordersList: [],
 };
 export const appSlice = createSlice({
   name: 'app',
@@ -174,6 +211,9 @@ export const appSlice = createSlice({
     setProductListLoader: (state, action) => {
       state.productListLoader = action.payload;
     },
+    setOrdersListData: (state, action) => {
+      state.ordersList = action.payload;
+    },
   },
 });
 export const {
@@ -191,6 +231,7 @@ export const {
   setAllCities,
   setUserSelectedAddress,
   setProductListLoader,
+  setOrdersListData,
 } = appSlice.actions;
 
 export default appSlice.reducer;

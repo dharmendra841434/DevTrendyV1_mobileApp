@@ -31,7 +31,7 @@ import {
   getUserAddresses,
   setCartItemsData,
   setTotalPrice,
-  updateUserDetails,
+  updateUserCartItems,
 } from '../../reduxManagment/splice/appSlice';
 import CheckDeliveryAdress from '../../components/DetectCurrentLocation';
 import CustomButton from '../../components/CustomButton';
@@ -68,7 +68,7 @@ const CartScreen = props => {
         userId: userData?._id,
         cartItems: res,
       };
-      dispatch(updateUserDetails(data));
+      dispatch(updateUserCartItems(data));
       dispatch(setTotalPrice(calculateTotalPrice(res)));
     }
   };
@@ -81,7 +81,7 @@ const CartScreen = props => {
         userId: userData?._id,
         cartItems: res,
       };
-      dispatch(updateUserDetails(data));
+      dispatch(updateUserCartItems(data));
       dispatch(setTotalPrice(calculateTotalPrice(res)));
     }
   };
@@ -94,7 +94,7 @@ const CartScreen = props => {
       cartItems: res,
     };
     dispatch(setCartItemsData(res));
-    dispatch(updateUserDetails(data));
+    dispatch(updateUserCartItems(data));
     dispatch(setTotalPrice(calculateTotalPrice(res)));
   };
 
@@ -105,7 +105,7 @@ const CartScreen = props => {
       userId: userData?._id,
       cartItems: result,
     };
-    dispatch(updateUserDetails(res));
+    dispatch(updateUserCartItems(res));
     dispatch(setCartItemsData(result));
   };
 
@@ -116,7 +116,7 @@ const CartScreen = props => {
       userId: userData?._id,
       cartItems: result,
     };
-    dispatch(updateUserDetails(res));
+    dispatch(updateUserCartItems(res));
     dispatch(setCartItemsData(result));
   };
 

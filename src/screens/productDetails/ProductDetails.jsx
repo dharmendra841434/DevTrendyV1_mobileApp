@@ -28,7 +28,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   setCartItemsData,
   setTotalPrice,
-  updateUserDetails,
+  updateUserCartItems,
 } from '../../reduxManagment/splice/appSlice';
 import CheckDeliveryAdress from '../../components/DetectCurrentLocation';
 
@@ -89,7 +89,7 @@ const ProductDetails = props => {
     };
 
     //console.log(data);
-    dispatch(updateUserDetails(data));
+    dispatch(updateUserCartItems(data));
   };
 
   useEffect(() => {
@@ -197,7 +197,7 @@ const ProductDetails = props => {
             style={{
               fontSize: 18,
               fontFamily: appFonts.Poppins,
-              color: appColors.appBlack,
+              color: appColors.textBlack,
             }}>
             Price :
           </Text>
@@ -210,7 +210,7 @@ const ProductDetails = props => {
               style={{
                 fontSize: 24,
                 fontFamily: appFonts.Poppins,
-                color: appColors.appBlack,
+                color: appColors.textBlack,
               }}>
               {addCommasToRupees(
                 calculateDiscountedPrice(
@@ -261,7 +261,7 @@ const ProductDetails = props => {
                 <Text
                   style={{
                     fontFamily: appFonts.Poppins,
-                    color: appColors.appBlack,
+                    color: appColors.textBlack,
                     fontSize: 16,
                   }}>
                   {item.size}
@@ -365,6 +365,12 @@ const ProductDetails = props => {
         )}
         <TouchableOpacity
           activeOpacity={0.6}
+          onPress={() => {
+            addToCart();
+            navigation.navigate('cart', {
+              isBack: true,
+            });
+          }}
           style={{
             backgroundColor: appColors.appRed,
             width: '80%',

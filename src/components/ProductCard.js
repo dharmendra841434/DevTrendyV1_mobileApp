@@ -80,7 +80,7 @@ const ProductCard = ({item, style}) => {
       <ShowRating rating={3.5} />
       <Text
         style={{
-          color: appColors.appBlack,
+          color: appColors.textBlack,
           fontFamily: appFonts.Poppins,
           textTransform: 'capitalize',
           fontSize: 16,

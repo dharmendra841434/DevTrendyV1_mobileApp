@@ -120,7 +120,7 @@ const BottomNavigation = () => {
                   <Text
                     style={{
                       color: appColors.appWhite,
-                      fontFamily: appFonts.PoppinsMedium,
+                      fontFamily: appFonts.Poppins,
                     }}>
                     {cartItems?.length}
                   </Text>

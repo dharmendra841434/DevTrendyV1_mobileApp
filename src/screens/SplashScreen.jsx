@@ -1,12 +1,7 @@
 import {
-  View,
-  Text,
   StyleSheet,
   ImageBackground,
   StatusBar,
-  Image,
-  Animated,
-  Easing,
   ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
@@ -15,17 +10,9 @@ import appFonts from '../utils/appFonts';
 import {useNavigation} from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import {BASE_URL} from '../utils/base_Url';
 import {useDispatch} from 'react-redux';
-import {
-  setCartItemsData,
-  setLoginStatus,
-  setTotalPrice,
-  setUserData,
-} from '../reduxManagment/splice/appSlice';
+import {getUserDetails} from '../reduxManagment/splice/appSlice';
 import {fetch} from '@react-native-community/netinfo';
-import {calculateTotalPrice} from '../utils/helper';
 const SplashScreen = () => {
   // const animatedValue = new Animated.Value(0);
   const navigation = useNavigation();
@@ -37,30 +24,9 @@ const SplashScreen = () => {
     setLoader(true);
     const token = await AsyncStorage.getItem('accessToken');
     if (token !== null) {
-      console.log('user auth');
-      await axios
-        .get(`${BASE_URL}/user/${token}`)
-        .then(res => {
-          //console.log(res.data?.user, 'userdetails');
-          dispatch(setUserData(res.data?.user));
-          dispatch(setLoginStatus(true));
-          if (res.data?.user?.cartItems.length !== 0) {
-            dispatch(setCartItemsData(res.data?.user?.cartItems));
-            dispatch(
-              setTotalPrice(calculateTotalPrice(res.data?.user?.cartItems)),
-            );
-          }
-
-          //navigation.navigate('home');
-          navigation.navigate('home');
-        })
-        .catch(err => {
-          console.log(err);
-        })
-        .finally(() => {
-          setLoader(false);
-          navigation.navigate('home');
-        });
+      dispatch(getUserDetails(token));
+      navigation.navigate('home');
+      setLoader(false);
     } else {
       navigation.navigate('home');
     }

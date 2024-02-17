@@ -20,6 +20,10 @@ import EditAddress from '../screens/savedAddress/EditAddress';
 import BottomNavigation from './bottomNavigation';
 import AllSuggestedProducts from '../screens/suggestedList/AllSuggestedProducts';
 import ProccessOrder from '../screens/placeOrderProcess/ProccessOrder';
+import Payments from '../screens/placeOrderProcess/Payments';
+import OrderSuccessScreen from '../screens/placeOrderProcess/OrderSuccessScreen';
+import OrdersList from '../screens/orders/OrdersList';
+import OrderDetails from '../screens/orders/OrderDetails';
 
 const Stack = createNativeStackNavigator();
 const RootNavigation = () => {
@@ -41,6 +45,8 @@ const RootNavigation = () => {
         <Stack.Screen name="allSuggested" component={AllSuggestedProducts} />
         <Stack.Screen name="selectAddress" component={SavedAddress} />
         <Stack.Screen name="proccessOrder" component={ProccessOrder} />
+        <Stack.Screen name="paymentPage" component={Payments} />
+        <Stack.Screen name="orderSuccess" component={OrderSuccessScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -79,6 +85,8 @@ const AccountStack = () => {
       <Stack.Screen name="savedAddress" component={SavedAddress} />
       <Stack.Screen name="newAddress" component={AddNewAddress} />
       <Stack.Screen name="editAddress" component={EditAddress} />
+      <Stack.Screen name="orders" component={OrdersList} />
+      <Stack.Screen name="orderDetails" component={OrderDetails} />
     </Stack.Navigator>
   );
 };

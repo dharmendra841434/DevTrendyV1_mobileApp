@@ -86,7 +86,7 @@ const HomeScreen = () => {
             <Text
               style={{
                 fontFamily: appFonts.PoppinsBold,
-                color: appColors.appBlack,
+                color: appColors.textBlack,
                 fontSize: 20,
               }}>
               Categories
@@ -172,7 +172,7 @@ const HomeScreen = () => {
             <Text
               style={{
                 fontFamily: appFonts.PoppinsBold,
-                color: appColors.appBlack,
+                color: appColors.textBlack,
                 fontSize: 20,
               }}>
               Suggest for you

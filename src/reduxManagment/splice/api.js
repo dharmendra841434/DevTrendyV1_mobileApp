@@ -45,56 +45,14 @@ export const userAPI = {
       .post(`${BASE_URL}/user/update/${id}`, data)
       .then(res => res?.data);
   },
-  //   getAllGames: async () => {
-  //     return await axios.get(`${BASE_URL}/games`).then(res => res.data);
-  //   },
-  //   getGameRates: async () => {
-  //     return await axios.get(`${BASE_URL}/game-rates`).then(res => res.data);
-  //   },
-  //   getBidHistory: async values => {
-  //     const {fromDate, toDate} = values;
-  //     return await axios
-  //       .get(`${BASE_URL}/bid-history?fromDate=${fromDate}&toDate=${toDate}`)
-  //       .then(res => res.data);
-  //   },
-  //   getDepositeHistory: async () => {
-  //     return await axios.get(`${BASE_URL}/deposit-history`).then(res => res.data);
-  //   },
-  //   getWithdrawlHistory: async () => {
-  //     return await axios
-  //       .get(`${BASE_URL}/withdrawl-history`)
-  //       .then(res => res.data);
-  //   },
-  //   getWinHistory: async () => {
-  //     return await axios.get(`${BASE_URL}/win-history`).then(res => res.data);
-  //   },
-  //   getAllGamesRate: async () => {
-  //     return await axios
-  //       .get(`${BASE_URL}/get-all-games-jodi-harup-rate `)
-  //       .then(res => res.data);
-  //   },
-  //   get24HoursBidHistory: async () => {
-  //     return await axios.get(`${BASE_URL}/bid-history`).then(res => res.data);
-  //   },
-
-  //   todayBidRecords: async gameName => {
-  //     return await axios
-  //       .get(`${BASE_URL}/user-bid-records-today?game=${gameName}`)
-  //       .then(res => res.data);
-  //   },
-  //   cancelBid: async bid_Id => {
-  //     //alert(bid_Id);
-  //     return await axios
-  //       .delete(`${BASE_URL}/cancel-bid/${bid_Id}`)
-  //       .then(res => res.data);
-  //   },
-  //   bidResult: async () => {
-  //     //alert(bid_Id);
-  //     return await axios.get(`${BASE_URL}/results`).then(res => res.data);
-  //   },
-  //   getNotifications: async () => {
-  //     return await axios
-  //       .get(`${BASE_URL}/my-notifications-list `)
-  //       .then(res => res.data);
-  //   },
+  getUserData: async token => {
+    //console.log(token);
+    return await axios.get(`${BASE_URL}/user/${token}`).then(res => res?.data);
+  },
+  getOrdersData: async id => {
+    //console.log(token);
+    return await axios
+      .get(`${BASE_URL}/order/order-list/${id}`)
+      .then(res => res?.data);
+  },
 };

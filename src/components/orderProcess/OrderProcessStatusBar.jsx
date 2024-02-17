@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import appFonts from '../../utils/appFonts';
 
 const OrderProcessStatusBar = ({data}) => {
-  console.log(data, 'tyduyy');
+  //console.log(data, 'tyduyy');
   return (
     <View style={styles.main}>
       <View>

@@ -12,10 +12,12 @@ import {
   calculateTotalAtualPrice,
   calculateTotalPrice,
 } from '../../utils/helper';
-import Payments from './Payments';
 
 const ProccessOrder = () => {
   const orderData = useSelector(state => state?.app?.cartItems);
+  const [upi, setUpi] = useState(true);
+  const [card, setCard] = useState(false);
+  const [cashOnDelivery, setCashOnDelivery] = useState(false);
 
   const navigation = useNavigation();
   const [stepsData, setStepsData] = useState([
@@ -32,16 +34,6 @@ const ProccessOrder = () => {
       isComplete: false,
     },
   ]);
-  const [selectedSteps, setSelectedSteps] = useState(stepsData[1]);
-
-  const updateStepCompletion = (index, newIsComplete) => {
-    const updatedStepsData = [...stepsData];
-    updatedStepsData[index] = {
-      ...updatedStepsData[index],
-      isComplete: newIsComplete,
-    };
-    setStepsData(updatedStepsData);
-  };
 
   return (
     <View style={styles.screen}>
@@ -59,12 +51,11 @@ const ProccessOrder = () => {
               size={25}
             />
           </TouchableOpacity>
-          <Text style={styles.header}>{selectedSteps?.title}</Text>
+          <Text style={styles.header}>Order Summery</Text>
         </View>
         <OrderProcessStatusBar data={stepsData} />
       </View>
-      {!stepsData[1].isComplete && <OrderSummery />}
-      {!stepsData[2].isComplete && <Payments />}
+      <OrderSummery />
       <View
         style={{
           flexDirection: 'row',
@@ -114,10 +105,7 @@ const ProccessOrder = () => {
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
-              if (!stepsData[1].isComplete) {
-                setSelectedSteps(stepsData[2]);
-                updateStepCompletion(1, true);
-              }
+              navigation.navigate('paymentPage');
             }}
             style={{
               backgroundColor: appColors.appGreen,
@@ -128,8 +116,9 @@ const ProccessOrder = () => {
             }}>
             <Text
               style={{
-                fontFamily: appFonts.Poppins,
+                fontFamily: appFonts.PoppinsMedium,
                 color: appColors.appWhite,
+                fontSize: 16,
               }}>
               {!stepsData[0].isComplete || !stepsData[1].isComplete
                 ? 'Continue'
