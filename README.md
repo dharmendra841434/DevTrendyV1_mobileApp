@@ -3,6 +3,9 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 ## Download apk below link
 https://drive.google.com/file/d/1_k5Sl99eA4swuToz-1EgzNqaXtrggIm9/view?usp=sharing
 
+## Play store app link 
+https://play.google.com/store/apps/details?id=com.devtrendy
+
 <img src="screenshots/img1.png" width="300" height="550">  <img src="screenshots/img2.png" width="300" height="550"> <img src="screenshots/img3.png" width="300" height="550"> 
 <img src="screenshots/img4.png" width="300" height="550"> <img src="screenshots/img5.png" width="300" height="550"> <img src="screenshots/img6.png" width="300" height="550">
 <img src="screenshots/img7.png" width="300" height="550"> <img src="screenshots/img8.png" width="300" height="550"> <img src="screenshots/img9.png" width="300" height="550">
