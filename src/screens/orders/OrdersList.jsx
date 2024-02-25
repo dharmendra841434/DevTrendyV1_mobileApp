@@ -14,6 +14,7 @@ import appFonts from '../../utils/appFonts';
 import {useDispatch, useSelector} from 'react-redux';
 import {getUserOrders} from '../../reduxManagment/splice/appSlice';
 import {sortString} from '../../utils/helper';
+import CustomHeader from '../../components/CustomHeader';
 
 const OrdersList = () => {
   const ordersList = useSelector(state => state?.app?.ordersList);
@@ -28,16 +29,7 @@ const OrdersList = () => {
 
   return (
     <View style={styles.screen}>
-      <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon
-            name="arrow-back-outline"
-            color={appColors.appBlack}
-            size={25}
-          />
-        </TouchableOpacity>
-        <Text style={styles.header}>Orders</Text>
-      </View>
+      <CustomHeader title="Orders" />
       <View style={{marginTop: 10}}>
         <FlatList
           data={ordersList}
@@ -94,19 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: appColors.appWhite,
   },
-  topBar: {
-    flexDirection: 'row',
-    backgroundColor: appColors.appWhite,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    columnGap: 16,
-    elevation: 5,
-  },
-  header: {
-    fontFamily: appFonts.PoppinsMedium,
-    color: appColors.appBlack,
-    fontSize: 17,
-  },
+
   subHeader: {
     fontFamily: appFonts.Poppins,
     color: appColors.appBlack,

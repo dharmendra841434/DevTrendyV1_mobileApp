@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
   main: {
     paddingHorizontal: '10%',
     paddingVertical: 20,
+    marginTop: 20,
   },
   conatiner: {
     position: 'absolute',

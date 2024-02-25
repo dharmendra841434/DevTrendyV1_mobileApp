@@ -16,7 +16,10 @@ const SearchScreen = () => {
   const [focus, setFocus] = useState(true);
   return (
     <View style={styles.screen}>
-      <StatusBar backgroundColor={appColors.appWhite} barStyle="dark-content" />
+      <StatusBar
+        backgroundColor={appColors.appBlack}
+        barStyle="light-content"
+      />
       <View style={styles.topBar}>
         <TouchableOpacity
           onPress={() => {
@@ -25,7 +28,7 @@ const SearchScreen = () => {
           <Icon
             name="arrow-back-outline"
             size={26}
-            color={appColors.appBlack}
+            color={appColors.appWhite}
           />
         </TouchableOpacity>
         <View
@@ -38,14 +41,16 @@ const SearchScreen = () => {
             style={{
               paddingVertical: 8,
               paddingStart: 5,
+              color: appColors.appWhite,
             }}
-            cursorColor={appColors.appBlack}
+            cursorColor={appColors.appGray}
             autoFocus={focus}
             onBlur={() => {
               setFocus(false);
             }}
             onFocus={() => setFocus(true)}
             placeholder="Search for products"
+            placeholderTextColor={appColors.appGray}
           />
         </View>
       </View>
@@ -62,6 +67,8 @@ const styles = StyleSheet.create({
     padding: 5,
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: appColors.appBlack,
+    paddingVertical: '4%',
   },
   inputContainer: {
     borderWidth: 1,

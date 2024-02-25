@@ -19,6 +19,7 @@ import axios from 'axios';
 import {setUserData} from '../../reduxManagment/splice/appSlice';
 import {useDispatch} from 'react-redux';
 import {BASE_URL} from '../../utils/base_Url';
+import CustomHeader from '../../components/CustomHeader';
 
 const EditProfile = props => {
   const userData = props?.route?.params?.userData;
@@ -61,26 +62,7 @@ const EditProfile = props => {
           backgroundColor={appColors.appBlack}
           barStyle="light-content"
         />
-        <View style={styles.topBar}>
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => navigation.goBack()}>
-            <Icon
-              name="arrow-back-outline"
-              size={22}
-              color={appColors.appWhite}
-            />
-          </TouchableOpacity>
-          <Text
-            style={{
-              fontFamily: appFonts.PoppinsMedium,
-              color: appColors.appWhite,
-              fontSize: 18,
-              marginStart: '7%',
-            }}>
-            Edit Profile
-          </Text>
-        </View>
+        <CustomHeader title="Edit Profile" />
         <View style={{paddingHorizontal: '4%'}}>
           <View>
             <Text

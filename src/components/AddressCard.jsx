@@ -80,7 +80,7 @@ const AddressCard = ({address, phone, index, onRemove, isThreeDot}) => {
               }}>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('', {
+                  navigation.navigate('editAddress', {
                     ID: index,
                     addressData: address,
                   });

@@ -9,22 +9,14 @@ import {
   calculateDiscountedPrice,
   sortString,
 } from '../../utils/helper';
+import CustomHeader from '../../components/CustomHeader';
 
 const OrderDetails = props => {
   const singleProduct = props?.route?.params?.productData;
   const navigation = useNavigation();
   return (
     <View style={styles.screen}>
-      <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon
-            name="arrow-back-outline"
-            color={appColors.appBlack}
-            size={25}
-          />
-        </TouchableOpacity>
-        <Text style={styles.header}>Order Details</Text>
-      </View>
+      <CustomHeader title="Order Details" />
       <View style={{paddingVertical: '3%'}}>
         <View
           style={{

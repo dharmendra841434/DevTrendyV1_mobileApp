@@ -48,7 +48,6 @@ const AccountScreen = () => {
   };
   return (
     <View style={Styles.screen}>
-      <StatusBar backgroundColor={appColors.appWhite} barStyle="dark-content" />
       <View>
         {isLoggedIn ? (
           <View
@@ -66,7 +65,7 @@ const AccountScreen = () => {
                 <Text
                   style={{
                     fontFamily: appFonts.PoppinsMedium,
-                    color: appColors.appBlack,
+                    color: appColors.appWhite,
                     textTransform: 'capitalize',
                     fontSize: 17,
                   }}>
@@ -75,7 +74,7 @@ const AccountScreen = () => {
                 <Text
                   style={{
                     fontFamily: appFonts.PoppinsMedium,
-                    color: appColors.appBlack,
+                    color: appColors.appWhite,
                     textTransform: 'capitalize',
                     fontSize: 17,
                   }}>
@@ -95,7 +94,7 @@ const AccountScreen = () => {
               <Text
                 style={{
                   fontFamily: appFonts.Poppins,
-                  color: appColors.appBlack,
+                  color: appColors.appWhite,
                   textTransform: 'capitalize',
                   fontSize: 13,
                 }}>
@@ -420,10 +419,11 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: appColors.appWhite,
+    backgroundColor: appColors.appBlack,
+    paddingBottom: '3%',
   },
   topContainer: {
-    backgroundColor: appColors.appWhite,
+    backgroundColor: appColors.appBlack,
     paddingVertical: 14,
     elevation: 5,
     paddingHorizontal: '4%',
@@ -445,9 +445,9 @@ const Styles = StyleSheet.create({
     elevation: 5,
   },
   heading: {
-    color: appColors.appBlack,
+    color: appColors.appWhite,
     fontFamily: appFonts.PoppinsMedium,
-    fontSize: 16,
+    fontSize: 17,
   },
   modalView: {
     backgroundColor: appColors.appWhite,

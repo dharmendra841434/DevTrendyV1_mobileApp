@@ -32,6 +32,7 @@ import {
   saveUserAddress,
   setUserData,
 } from '../../reduxManagment/splice/appSlice';
+import CustomHeader from '../../components/CustomHeader';
 
 const AddNewAddress = props => {
   const loader = useSelector(state => state?.app?.saveAddressLoader);
@@ -122,26 +123,7 @@ const AddNewAddress = props => {
         backgroundColor={appColors.appBlack}
         barStyle="light-content"
       />
-      <View style={styles.topBar}>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}>
-          <Icon
-            name="arrow-back-outline"
-            size={22}
-            color={appColors.appWhite}
-          />
-        </TouchableOpacity>
-        <Text
-          style={{
-            fontFamily: appFonts.Poppins,
-            color: appColors.appWhite,
-            fontSize: 18,
-            marginStart: '7%',
-          }}>
-          Add delivery address
-        </Text>
-      </View>
+      <CustomHeader title="Add delivery address" />
       <ScrollView>
         <KeyboardAvoidingView>
           <View style={styles.container}>

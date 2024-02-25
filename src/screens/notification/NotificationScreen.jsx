@@ -11,6 +11,7 @@ import appColors from '../../utils/appColors';
 import appFonts from '../../utils/appFonts';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import CustomHeader from '../../components/CustomHeader';
 
 const NotificationScreen = () => {
   const navigation = useNavigation();
@@ -22,20 +23,7 @@ const NotificationScreen = () => {
         backgroundColor: appColors.appWhite,
         flex: 1,
       }}>
-      <StatusBar
-        backgroundColor={appColors.appWhite}
-        barStyle="light-content"
-      />
-      <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon
-            name="arrow-back-outline"
-            color={appColors.appBlack}
-            size={25}
-          />
-        </TouchableOpacity>
-        <Text style={styles.header}>Notifications</Text>
-      </View>
+      <CustomHeader title="Notifications" />
       <View
         style={{
           flexDirection: 'row',

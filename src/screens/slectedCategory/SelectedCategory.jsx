@@ -17,6 +17,7 @@ import PriceTag from '../../components/PriceTag';
 import ShowRating from '../../components/ShowRating';
 import {BASE_URL} from '../../utils/base_Url';
 import CardLoader from '../../components/loaders/cardLoader';
+import CustomHeader from '../../components/CustomHeader';
 
 const SelectedCategory = props => {
   const categoryType = props?.route?.params?.categoryType;
@@ -49,27 +50,7 @@ const SelectedCategory = props => {
   return (
     <View style={styles.screen}>
       <StatusBar backgroundColor={appColors.appWhite} barStyle="dark-content" />
-      <View style={styles.topBar}>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}>
-          <Icon
-            name="arrow-back-outline"
-            size={22}
-            color={appColors.appBlack}
-          />
-        </TouchableOpacity>
-        <Text
-          style={{
-            color: appColors.textBlack,
-            fontFamily: appFonts.Poppins,
-            textTransform: 'capitalize',
-            fontSize: 18,
-            marginStart: 10,
-          }}>
-          {categoryType}
-        </Text>
-      </View>
+      <CustomHeader title={categoryType} />
       {loader ? (
         <CardLoader />
       ) : (

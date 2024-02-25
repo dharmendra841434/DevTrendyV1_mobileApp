@@ -12,6 +12,7 @@ import {
   calculateTotalAtualPrice,
   calculateTotalPrice,
 } from '../../utils/helper';
+import CustomHeader from '../../components/CustomHeader';
 
 const ProccessOrder = () => {
   const orderData = useSelector(state => state?.app?.cartItems);
@@ -43,16 +44,7 @@ const ProccessOrder = () => {
           elevation: 5,
           paddingBottom: '10%',
         }}>
-        <View style={styles.topBar}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon
-              name="arrow-back-outline"
-              color={appColors.appBlack}
-              size={25}
-            />
-          </TouchableOpacity>
-          <Text style={styles.header}>Order Summery</Text>
-        </View>
+        <CustomHeader title="Order Summery" />
         <OrderProcessStatusBar data={stepsData} />
       </View>
       <OrderSummery />

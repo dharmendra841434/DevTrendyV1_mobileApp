@@ -20,6 +20,7 @@ import {
 } from '../../reduxManagment/splice/appSlice';
 import BottomSlide from '../../components/BottomSlide';
 import ChangeAddress from './ChangeAddress';
+import CustomHeader from '../../components/CustomHeader';
 
 const SavedAddress = props => {
   //const userData = props?.route?.params?.userData;
@@ -45,26 +46,7 @@ const SavedAddress = props => {
         backgroundColor={appColors.appBlack}
         barStyle="light-content"
       />
-      <View style={styles.topBar}>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}>
-          <Icon
-            name="arrow-back-outline"
-            size={22}
-            color={appColors.appWhite}
-          />
-        </TouchableOpacity>
-        <Text
-          style={{
-            fontFamily: appFonts.Poppins,
-            color: appColors.appWhite,
-            fontSize: 18,
-            marginStart: '7%',
-          }}>
-          My Addresses
-        </Text>
-      </View>
+      <CustomHeader title="My Addresses" />
       <View
         style={{
           backgroundColor: appColors.appWhite,

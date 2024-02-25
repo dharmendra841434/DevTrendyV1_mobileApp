@@ -37,6 +37,7 @@ const Width = Dimensions.get('window').width;
 const ProductDetails = props => {
   const userData = useSelector(state => state?.app?.userData);
   const cartItems = useSelector(state => state?.app?.cartItems);
+  const isLoggedIn = useSelector(state => state?.app?.isLoggedIn);
   const single_product_data = props?.route?.params?.details;
   const navigation = useNavigation();
   const [activeImage, setActiveImage] = useState(
@@ -83,13 +84,15 @@ const ProductDetails = props => {
     dispatch(setCartItemsData(details));
     let t = calculateTotalPrice(details);
     dispatch(setTotalPrice(t));
-    const data = {
-      userId: userData?._id,
-      cartItems: details,
-    };
 
     //console.log(data);
-    dispatch(updateUserCartItems(data));
+    if (isLoggedIn) {
+      const data = {
+        userId: userData?._id,
+        cartItems: details,
+      };
+      dispatch(updateUserCartItems(data));
+    }
   };
 
   useEffect(() => {
@@ -100,7 +103,10 @@ const ProductDetails = props => {
 
   return (
     <View style={styles.screen}>
-      <StatusBar backgroundColor={appColors.appWhite} barStyle="dark-content" />
+      <StatusBar
+        backgroundColor={appColors.appBlack}
+        barStyle="light-content"
+      />
       <View style={styles.topBar}>
         <TouchableOpacity
           activeOpacity={0.6}
@@ -108,7 +114,7 @@ const ProductDetails = props => {
           <Icon
             name="arrow-back-outline"
             size={22}
-            color={appColors.appBlack}
+            color={appColors.appWhite}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -117,10 +123,10 @@ const ProductDetails = props => {
             navigation.navigate('search');
           }}
           style={styles.searchButton}>
-          <Icon name="search-outline" size={22} color={appColors.appGray} />
+          <Icon name="search-outline" size={22} color={appColors.textBlack} />
           <Text
             style={{
-              color: appColors.appGray,
+              color: appColors.textBlack,
               marginStart: 4,
               fontFamily: appFonts.Poppins,
             }}>
@@ -404,16 +410,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: '3%',
-    paddingVertical: '2%',
+    paddingVertical: '5%',
+    backgroundColor: appColors.appBlack,
   },
   searchButton: {
     width: '75%',
     height: 45,
     marginStart: '4%',
     borderRadius: 5,
-    backgroundColor: '#ededeb',
+    backgroundColor: appColors.appGray,
     borderWidth: 1,
-    borderColor: '#cacccb',
+    borderColor: appColors.appGray,
     color: appColors.appBlack,
     paddingStart: 5,
     flexDirection: 'row',
@@ -484,7 +491,7 @@ const styles = StyleSheet.create({
     right: -10,
     top: -5,
     borderWidth: 2,
-    borderColor: appColors.appWhite,
+    borderColor: appColors.appBlack,
   },
   checked: {
     position: 'absolute',

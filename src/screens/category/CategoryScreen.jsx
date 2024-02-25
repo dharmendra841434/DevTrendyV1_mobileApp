@@ -3,6 +3,7 @@ import React from 'react';
 import CardLoader from '../../components/loaders/cardLoader';
 import appColors from '../../utils/appColors';
 import appFonts from '../../utils/appFonts';
+import CustomHeader from '../../components/CustomHeader';
 
 const CategoryScreen = () => {
   return (
@@ -10,14 +11,15 @@ const CategoryScreen = () => {
       style={{
         backgroundColor: appColors.appWhite,
         flex: 1,
-        justifyContent: 'center',
       }}>
+      <CustomHeader title="Categories" />
       <Text
         style={{
           fontFamily: appFonts.PoppinsBold,
           color: appColors.appRed,
           alignSelf: 'center',
           fontSize: 18,
+          marginTop: '40%',
         }}>
         We add more category soon...
       </Text>

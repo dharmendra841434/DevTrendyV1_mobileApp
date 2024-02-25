@@ -64,11 +64,13 @@ const CartScreen = props => {
     if (item?.quantity > 1) {
       let res = decreasQty(cartItems, item?._id, item?.quantity);
       dispatch(setCartItemsData(res));
-      const data = {
-        userId: userData?._id,
-        cartItems: res,
-      };
-      dispatch(updateUserCartItems(data));
+      if (isLoggedIn) {
+        const data = {
+          userId: userData?._id,
+          cartItems: res,
+        };
+        dispatch(updateUserCartItems(data));
+      }
       dispatch(setTotalPrice(calculateTotalPrice(res)));
     }
   };
@@ -77,11 +79,13 @@ const CartScreen = props => {
     if (item?.quantity < 9) {
       let res = increasQty(cartItems, item?._id, item?.quantity);
       dispatch(setCartItemsData(res));
-      const data = {
-        userId: userData?._id,
-        cartItems: res,
-      };
-      dispatch(updateUserCartItems(data));
+      if (isLoggedIn) {
+        const data = {
+          userId: userData?._id,
+          cartItems: res,
+        };
+        dispatch(updateUserCartItems(data));
+      }
       dispatch(setTotalPrice(calculateTotalPrice(res)));
     }
   };
@@ -89,40 +93,52 @@ const CartScreen = props => {
   const removeItems = item => {
     let t = [...cartItems];
     let res = t.filter((item4, index) => item4?._id !== item?._id);
-    const data = {
-      userId: userData?._id,
-      cartItems: res,
-    };
+
     dispatch(setCartItemsData(res));
-    dispatch(updateUserCartItems(data));
+    if (isLoggedIn) {
+      const data = {
+        userId: userData?._id,
+        cartItems: res,
+      };
+      dispatch(updateUserCartItems(data));
+    }
     dispatch(setTotalPrice(calculateTotalPrice(res)));
   };
 
   const selectColor = async (item, item2) => {
     let data = [...cartItems];
     let result = await changeSelectedColor(data, item?._id, item2);
-    const res = {
-      userId: userData?._id,
-      cartItems: result,
-    };
-    dispatch(updateUserCartItems(res));
+
+    if (isLoggedIn) {
+      const res = {
+        userId: userData?._id,
+        cartItems: result,
+      };
+      dispatch(updateUserCartItems(res));
+    }
     dispatch(setCartItemsData(result));
   };
 
   const handleSelectSize = async (val, item) => {
     let data = [...cartItems];
     let result = await changeSelectedSize(data, item?._id, val);
-    const res = {
-      userId: userData?._id,
-      cartItems: result,
-    };
-    dispatch(updateUserCartItems(res));
+
+    if (isLoggedIn) {
+      const res = {
+        userId: userData?._id,
+        cartItems: result,
+      };
+      dispatch(updateUserCartItems(res));
+    }
     dispatch(setCartItemsData(result));
   };
 
   return (
     <>
-      <StatusBar backgroundColor={appColors.appWhite} barStyle="dark-content" />
+      <StatusBar
+        backgroundColor={appColors.appBlack}
+        barStyle="light-content"
+      />
       {cartItems?.length !== 0 ? (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <View style={styles.screen}>
@@ -132,7 +148,7 @@ const CartScreen = props => {
                 backgroundColor: appColors.appWhite,
                 marginBottom: 10,
               }}>
-              <View style={{...styles.topBar, marginStart: isBack ? 0 : '3%'}}>
+              <View style={{...styles.topBar}}>
                 {isBack && (
                   <TouchableOpacity
                     activeOpacity={0.6}
@@ -140,14 +156,15 @@ const CartScreen = props => {
                     <Icon
                       name="arrow-back-outline"
                       size={22}
-                      color={appColors.appBlack}
+                      color={appColors.appWhite}
                     />
                   </TouchableOpacity>
                 )}
                 <Text
                   style={{
-                    color: appColors.appBlack,
+                    color: appColors.appWhite,
                     fontFamily: appFonts.Poppins,
+                    fontSize: 17,
                   }}>
                   My Cart
                 </Text>
@@ -157,7 +174,6 @@ const CartScreen = props => {
                   style={{
                     marginStart: '6%',
                     marginVertical: '4%',
-                    marginTop: -3,
                   }}>
                   <View>
                     <View style={{flexDirection: 'row'}}>
@@ -237,7 +253,9 @@ const CartScreen = props => {
                   </View>
                 </View>
               ) : (
-                <CheckDeliveryAdress />
+                <View style={{marginTop: '5%'}}>
+                  <CheckDeliveryAdress />
+                </View>
               )}
             </View>
 
@@ -603,7 +621,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     columnGap: 10,
     paddingHorizontal: '3%',
-    paddingVertical: '2%',
+    paddingVertical: '5%',
+    backgroundColor: appColors.appBlack,
   },
   dropDown: {
     borderWidth: 1,

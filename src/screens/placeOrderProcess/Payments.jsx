@@ -22,6 +22,7 @@ import axios from 'axios';
 import {BASE_URL} from '../../utils/base_Url';
 import {useDispatch, useSelector} from 'react-redux';
 import Modal_Loader from '../../components/loaders/Modal_Loader';
+import CustomHeader from '../../components/CustomHeader';
 //import Toast from 'react-native-toast-message';
 
 const Payments = ({}) => {
@@ -124,16 +125,7 @@ const Payments = ({}) => {
           elevation: 5,
           paddingBottom: '10%',
         }}>
-        <View style={styles.topBar}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon
-              name="arrow-back-outline"
-              color={appColors.appBlack}
-              size={25}
-            />
-          </TouchableOpacity>
-          <Text style={styles.header}>Payment</Text>
-        </View>
+        <CustomHeader title="Payments" />
         <OrderProcessStatusBar data={stepsData} />
       </View>
       <View style={styles.container}>
